@@ -1,17 +1,72 @@
-/* Contador de palavras
- *
- * Este programa recebera uma serie de caracteres representando palavras em sua
- * entrada. Ao receber um caractere fim de linha ('\n'), deve imprimir na tela o
- * numero de palavras separadas que recebeu e, apos, encerrar.
- */
-
 #include <stdio.h>
+#define MAX 210000
+
+int entrada[MAX];
+int nprimos[MAX];
 
 int main() {
+  int aux,i,tam_nprimos;
+  int counter = 0;
+ 
+  for(i=0; i<MAX; i++){
+    entrada[i] = -1;
+    nprimos[i] = -1;
+  }
+  for(counter=0; counter<MAX; counter++){
+    scanf("%d", &aux);
+    if(aux == -1){
+      break;
+    }
+    entrada[counter] = aux;
+  }
+  for(i=0; i<10; i++){
+    //printf("A entrada %d é: %d \n",i, entrada[i]);
+  }  
+  tam_nprimos = encontra_primos(counter);
+  ordena_numeros(tam_nprimos);
+}
 
-  int x, y;
+int encontra_primos(int tam_vetor){
+  int i,j,aux; // aux eh o numero de divisores de um numero
+  int k = 0; // k sera o tamanho do vetor nprimos
+  for(i=0; i<tam_vetor; i++){ //faz um loop entre os numeros do input
+    if(entrada[i] == 2){  // supoe que todo numero eh divisivel por 1 e por ele mesmo
+      aux = 1;
+    }else aux = 2;
+    if(entrada[i] == 1){
+      aux = 3;
+    }  
+    //printf("A entrada atual é: %d \n", entrada[i]);
+    for(j=2; j<(entrada[i]/2 +1); j++){
+      //printf("O j, div atual, é: %d \n", j);
+      if( (entrada[i] % j) == 0 ){
+	aux++ ; //o numero nao e primo
+	//printf("aux aumentou para %d \n", aux);
+      }
+    }
+    if(aux > 2){
+      nprimos[k] = entrada[i];
+      //printf("%d nao eh primo \n", nprimos[k]);
+      k++;
+    }  
+  }
+  return k;
+}
 
-  scanf("%d %d\n", &x, &y);
-  printf("%d\n", x + 200);
-  return 0;
+void ordena_numeros(int tam_vetor){
+  FILE *f = fopen("resp", "w");
+  int i,j,aux;
+  for(i=0; i<(tam_vetor-1); i++){
+    for(j=0; j<(tam_vetor-1); j++){
+      if(nprimos[j] < nprimos[j+1]){
+	aux = nprimos[j];
+	nprimos[j] = nprimos[j+1];
+	nprimos[j+1] = aux;
+      }
+    }  
+  }  
+  
+  for(i=0; i<tam_vetor; i++)
+    printf("%d\n", nprimos[i]);
+  
 }
