@@ -1,5 +1,7 @@
 #include <stdio.h>
-#define MAX 210000
+#include <math.h>
+#define MAX 200010
+
 
 int entrada[MAX];
 int nprimos[MAX];
@@ -37,7 +39,7 @@ int encontra_primos(int tam_vetor){
       aux = 3;
     }  
     //printf("A entrada atual é: %d \n", entrada[i]);
-    for(j=2; j<(entrada[i]/2 +1); j++){
+    for(j=2; j <= ceil(sqrt(entrada[i])); j++){
       //printf("O j, div atual, é: %d \n", j);
       if( (entrada[i] % j) == 0 ){
 	aux++ ; //o numero nao e primo
@@ -54,7 +56,6 @@ int encontra_primos(int tam_vetor){
 }
 
 void ordena_numeros(int tam_vetor){
-  FILE *f = fopen("resp", "w");
   int i,j,aux;
   for(i=0; i<(tam_vetor-1); i++){
     for(j=0; j<(tam_vetor-1); j++){
