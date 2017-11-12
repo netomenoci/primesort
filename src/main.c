@@ -39,7 +39,7 @@ int encontra_primos(int tam_vetor){
       aux = 3;
     }  
     //printf("A entrada atual é: %d \n", entrada[i]);
-    for(j=2; j <= ceil(sqrt(entrada[i])); j++){
+    for(j=2;( (j <= ceil(sqrt(entrada[i]))) && (aux < 4) ); j++){
       //printf("O j, div atual, é: %d \n", j);
       if( (entrada[i] % j) == 0 ){
 	aux++ ; //o numero nao e primo
