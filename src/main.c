@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
 #define MAX 200010
 
 
@@ -54,18 +55,23 @@ int encontra_primos(int tam_vetor){
   }
   return k;
 }
+int compara(const void *argumento1, const void *argumento2){
+ return (* (int*) argumento2-*(int*) (argumento1));
+}
 
 void ordena_numeros(int tam_vetor){
-  int i,j,aux;
-  for(i=0; i<(tam_vetor-1); i++){
-    for(j=0; j<(tam_vetor-1); j++){
-      if(nprimos[j] < nprimos[j+1]){
-	aux = nprimos[j];
-	nprimos[j] = nprimos[j+1];
-	nprimos[j+1] = aux;
-      }
-    }  
-  }  
+    qsort(nprimos, tam_vetor, sizeof(int), compara);
+    int i;
+//  int i,j,aux;
+//  for(i=0; i<(tam_vetor-1); i++){
+//    for(j=0; j<(tam_vetor-1); j++){
+//      if(nprimos[j] < nprimos[j+1]){
+//	aux = nprimos[j];
+//	nprimos[j] = nprimos[j+1];
+//	nprimos[j+1] = aux;
+//     }
+//  }  
+//  }  
   
   for(i=0; i<tam_vetor; i++)
     printf("%d\n", nprimos[i]);
